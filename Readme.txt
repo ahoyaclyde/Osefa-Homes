@@ -1,6 +1,5 @@
-Thanks for downloading this template!
+Welcome to osefa Homes & Developers Site Page 
 
-Template Name: UpConstruction
-Template URL: https://bootstrapmade.com/upconstruction-bootstrap-construction-website-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
+Site Name: Osefa Homes & DEvelopers
+Author: DensoLabs
+License: https://denso.onrender.com/Osefa_Homes/license/
