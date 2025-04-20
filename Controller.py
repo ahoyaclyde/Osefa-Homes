@@ -1,5 +1,5 @@
 import asyncio
-from flask import Flask  , url_for , render_template , request , redirect , send_from_directory
+from flask import Flask , url_for , render_template , request , redirect , send_from_directory
 from jinja2 import Environment , FileSystemLoader
 from flask.views import View
 from flask import g
@@ -14,7 +14,7 @@ import uuid
 import datetime
 #from flask_sslify import SSLify
 
-
+from utils import base as base 
 
 #import Twilio_Content_Provider as Twilio_Service
 app=Flask(__name__)
@@ -52,6 +52,22 @@ class Dash_Page_Context(View):
             return render_template('Home.html' , CompanyID = CompanyID , YEAR = YEAR  )
         
 
+class Onboarding_Platform(View): 
+    methods = ['GET', 'POST']  
+    def dispatch_request(self) -> str :
+        CompanyID = "Osefa Homes & Developers "
+        if request.method == 'POST':
+            EmailAddress = request.form.get("Email")
+            Phone = request.form.get("Contact")
+            Subject = """ Thank you for joining Osefa homes & Developers . You registered with phone [ {0} ] . Kindly usse that to log in """.format(Phone)
+            Body = """ Welcome to Osefa Homes & Devs  """ 
+            print(EmailAddress)
+            print(Subject)
+            base.Create_Email(EmailAddress , Subject , Body)
+        else: 
+            # Return requested profile thru client connect 
+            return redirect('Home' , CompanyID = CompanyID , Info = Info  )
+
 
 
 class Company_Contact_Profile(View):
@@ -72,6 +88,7 @@ class Company_Contact_Profile(View):
 
 app.add_url_rule('/', view_func=Dash_Page_Context.as_view('Home'))
 app.add_url_rule('/contact/portal/', view_func=Company_Contact_Profile.as_view('Contact'))
+app.add_url_rule('/portal/account/create/', view_func=Onboarding_Platform.as_view('join'))
 
 
 

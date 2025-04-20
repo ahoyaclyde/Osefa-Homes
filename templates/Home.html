@@ -148,7 +148,7 @@
           </div>
 
           <div class="col-lg-5" data-aos="zoom-out" data-aos-delay="200">
-            <form action="forms/quote.php" method="post" class="php-email-form">
+            <form action="{{url_for('join')}}" method="post" class="" >
               <h3> Join us , by creating your account here ...</h3>
               <p> Dont just have a peek . Feel free to create your account with us and join the movement towards better living throught our best in class  services with safe and top notch design principles </p>
               <div class="row gy-3">
@@ -158,21 +158,19 @@
                 </div>
 
                 <div class="col-12 ">
-                  <input type="email" class="form-control" name="email" placeholder="Email" required="">
+                  <input type="email" class="form-control" name="Email" placeholder="Email" required="">
                 </div>
 
                 <div class="col-12">
-                  <input type="text" class="form-control" name="phone" placeholder="Phone" required="">
+                  <input type="text" class="form-control" name="Contact" placeholder="Phone" required="">
                 </div>
 
                
 
                 <div class="col-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your account creation request has been sent successfully. Thank you!</div>
-
-                  <button type="submit"> Create Account </button>
+                
+                  <button type="submit" class="get-started"> Create Account </button>
+            
                 </div>
 
               </div>
