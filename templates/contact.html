@@ -51,7 +51,6 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="{{url_for('Home')}}">Home</a></li>
-          <li><a href="about.html">About</a></li>
           <li><a href="{{url_for('Home')}}">Services</a></li>
           <li><a href="{{url_for('Home')}}">Projects</a></li>
           <li class="dropdown"><a href="#"><span> Design Concepts </span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -134,25 +133,25 @@
           </div><!-- End Google Maps -->
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+            <form action="{{url_for('Contact-Osefa')}}" method="post" class="" data-aos="fade-up" data-aos-delay="400">
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Full Name" required="">
+                  <input type="text" name="Email" class="form-control" placeholder="Your Email " required="">
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="text" class="form-control" name="text" placeholder="Your Phone Contact" required="">
+                  <input type="text" class="form-control" name="Contact" placeholder="Your Phone Contact" required="">
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject : Categorise your issue , what topi or feature is it ? " required="">
+                  <input type="text" class="form-control" name="Subject" placeholder="Subject : Categorise your issue , what topi or feature is it ? " required="">
                 </div>
 
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message : Explain in detail what you have in mind so that we could level up to your plan and execute perfection ." required=""></textarea>
+                  <textarea class="form-control" name="Message" rows="6" placeholder="Message : Explain in detail what you have in mind so that we could level up to your plan and execute perfection ." required=""></textarea>
                 </div>
-                <p> NOTE : You might receive a phone call once this request has been sampled and validated . Thank you ! </p>
+                <p>  You'll receive a confirmation once this request has been sampled and validated . Thank you ! </p>
                 <div class="col-md-12 text-center">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
