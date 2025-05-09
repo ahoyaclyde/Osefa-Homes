@@ -27,4 +27,4 @@ urllib3==1.26.7
 Werkzeug==2.0.2
 zope.interface==5.4.0
 flask-sslify==0.1.5 
-resend==2.7.0
+resend
