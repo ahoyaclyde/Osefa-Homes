@@ -8,6 +8,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'flask' , 'folium' , 'twilio'  , 'watchdog' , 'flask-sslify' 
+        'flask' , 'folium' , 'twilio'  , 'watchdog' , 'flask-sslify' , 'resend' , 'flask-cors' , 'aiohttp'
     ],
 )

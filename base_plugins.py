@@ -28,7 +28,7 @@ def Space_Time_Generator(Form) -> str:
     elif ( Form == str('DateStr')):
         # Returns The Day - Str , Date - Int and Year - Int e.g Sunday:05:2024
         FormatedString =TimeComponent.strftime(f"%A:%m:%Y")
-    elif(Form == str('TimeStr')):
+    elif(Form == str('TimeInt')):
         # Returns int time in form of Hrs Min Sec
         FormatedString =TimeComponent.strftime(f"%H:%M:%S")
     elif(Form == str('Mutate')):
@@ -90,7 +90,7 @@ def Create_Email(Recipient , Subject , Body):
     if Body : 
         print(Recipient , Subject , Body )
         params: resend.Emails.SendParams = {
-        "from": "osefahomes@info.com <onboarding@resend.dev>",
+        "from": " Godark@coinwryt <onboarding@resend.dev>",
         "to": [Recipient],
         "subject": Subject ,
         "html": Body ,

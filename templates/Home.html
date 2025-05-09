@@ -91,7 +91,7 @@
             <div class="col-lg-6 text-center">
               <h2>Welcome to Osefa Homes & Developers</h2>
               <p> Osefa Homes: Building dreams from the ground up. We're a full-service construction and design firm handling everything from initial concept to stunning interiors. Expert project management, quality craftsmanship, and a client-focused approach ensure your vision becomes reality – on time and within budget. Let's build your future, together. </p>
-              <a href="#get-started" class="btn-get-started">Get Started</a>
+              <a href="{{url_for('Auth')}}" class="btn-get-started">Get Started</a>
             </div>
           </div>
         </div>
@@ -154,6 +154,10 @@
               <div class="row gy-3">
 
                 <div class="col-12">
+                  <input type="text"  class="form-control" value="{{UID}}" name="UID" required="" hidden readonly>
+                </div>
+
+                <div class="col-12">
                   <input type="text" name="name" class="form-control" placeholder="Name" required="">
                 </div>
 
@@ -169,7 +173,19 @@
 
                 <div class="col-12 text-center">
                 
-                  <button type="submit" class="get-started"> Create Account </button>
+                  <button type="submit" style="color:#feb900;
+                  font-family: var(--heading-font);
+                  font-weight: 500;
+                  font-size: 16px;
+                  letter-spacing: 1px;
+                  display: inline-block;
+                  padding: 12px 40px;
+                  border-radius: 50px;
+                  transition: 0.5s;
+                  margin: 10px;
+                  border: 2px solid #feb900;
+                  background-color:inherit;
+              "> Create Account </button>
             
                 </div>
 
