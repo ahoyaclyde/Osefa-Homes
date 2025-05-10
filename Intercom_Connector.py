@@ -488,6 +488,29 @@ def Print_Subscribers(Bindings):
     return DatabaseFeed
 
 
+
+
+def Print_Subscribers_Contacts(Bindings):
+  
+      
+    """
+    Query all DatabaseFeed in theProperty_Schema table
+    :param conn: the Connection object
+    :return:
+    """
+    conn = create_connection(DatabaseURL)
+    cur = conn.cursor()
+    cur.execute("SELECT SubsContact FROM Subscribers Where IsExistent = ? " , ( Bindings , ))
+
+    DatabaseFeed = cur.fetchall()
+
+    for DataChunk in DatabaseFeed:
+        print(DataChunk)
+    return DatabaseFeed
+
+
+
+
 Property = ("84989839" , "ahoyaclyde@gmail.com" , "Clydenso Dela gaza" , "0724534645",  "Ferociuos23" , "3/4/2012" , "12:53 pm " , "Administrator" , "0")
 #Create_Account(Property)
 #Print_Clientelle_Listings("Administrator")

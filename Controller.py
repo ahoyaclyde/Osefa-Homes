@@ -39,7 +39,11 @@ def not_found(error):
   return render_template("404.html" , error = error)
 
 
-CompanyID = "Osefa Homes & Developers "
+CompanyID = "Osefa Homes "
+AbstractSequences = ["DateStr" , "TimeStr"]
+
+def Render_Abstract_Time():
+    return base_controller.Space_Time_Generator(AbstractSequences[-1])
 
 # Base Route Address For Home/Landing Page Scenarios 
 # Initial Page 
@@ -118,12 +122,13 @@ class Contact_Us(View):
 class Company_Contact_Profile(View):
    methods = ['GET', 'POST']  
    def dispatch_request(self) -> str :
+        Abstract = Render_Abstract_Time
        
         if request.method == 'POST':
-            return render_template('contact.html' , CompanyID = CompanyID   )
+            return render_template('contact.html' , CompanyID = CompanyID  , Abstract = Abstract )
         else: 
             # Return requested profile thru client connect 
-            return render_template('contact.html' , CompanyID = CompanyID  )
+            return render_template('contact.html' , CompanyID = CompanyID  , Abstract = Abstract  )
         
 
 
@@ -135,8 +140,8 @@ class Admin_Controller_Interface(View):
    def dispatch_request(self) -> str :
        
         if request.method == 'GET':
-            Indicator = int(1) 
-            Indicator_Next = int(0)  
+            Indicator = int(0) 
+            Indicator_Next = int(1)  
             Clientelle_Profiles = control_baselink.Print_Clientelle_Listings("Standard") 
             Inactive_Profiles = control_baselink.Print_Profile_States(Indicator)
             #Checks 
@@ -146,12 +151,19 @@ class Admin_Controller_Interface(View):
                 Clientelle_Index = int(0) 
 
             Invoiced_Profiles = control_baselink.Print_Invoices(Indicator)
+            Pending_Profiles  = control_baselink.Print_Invoices (Indicator_Next)
             #Checks 
             if Invoiced_Profiles:
                 Invoice_Index = len(Invoiced_Profiles)
             else:
                 Invoice_Index = int(0) 
 
+
+            # Check For Pending Profiles 
+            if Pending_Profiles: 
+                Pending_Index = len(Pending_Profiles)
+            else:
+                Pending_Index = int(0)
 
             Projects = control_baselink.Print_Projects(Indicator)
         
@@ -170,7 +182,7 @@ class Admin_Controller_Interface(View):
             
             
  
-            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID , Clientelle_Index = Clientelle_Index , Clientelle_Profiles = Clientelle_Profiles , Invoice_Index = Invoice_Index , Project_Index = Project_Index , Sub_Index = Sub_Index    )
+            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID , Clientelle_Index = Clientelle_Index , Clientelle_Profiles = Clientelle_Profiles , Invoice_Index = Invoice_Index , Pending_Profiles = Pending_Profiles , Pending_Index  =  Pending_Index ,  Project_Index = Project_Index , Sub_Index = Sub_Index  )
         else: 
             # Return requested profile thru client connect 
             return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID  )
@@ -381,6 +393,26 @@ class Clientelle_Relay_Interface(View):
 
 
 
+class Mass_Mail_Dispatch(View):
+   methods = ['POST']  
+   def dispatch_request(self) -> str :
+       
+        if request.method == 'POST':
+            Indicator = int(0)  
+            Topicline = request.form.get("Subject")
+            SubjectMatter  = request.form.get("Matter")
+            Subs_Profiles = control_baselink.Print_Subscribers_Contacts(Indicator)
+            #Checks 
+            if Subs_Profiles:
+                print(Subs_Profiles)
+                for Profile in Subs_Profiles: 
+                    print(Profile)
+                    base_controller.Create_Email(Profile , Topicline , SubjectMatter )
+            else:
+                return redirect(url_for('Subscribe'))  
+
+        # Return requested profile thru client connect 
+        return redirect(url_for('Subscribe'))        
 
 app.add_url_rule('/', view_func=Dash_Page_Context.as_view('Home'))
 app.add_url_rule('/contact/portal/', view_func=Company_Contact_Profile.as_view('Contact'))
@@ -388,7 +420,7 @@ app.add_url_rule('/portal/account/create/', view_func=Onboarding_Platform.as_vie
 app.add_url_rule('/portal/account/contact-us/', view_func=Contact_Us.as_view('Contact-Osefa'))
 app.add_url_rule('/Home/Administrator/Dashboard/', view_func=Admin_Controller_Interface.as_view('Admin'))
 
-
+app.add_url_rule('/Home/Administrator/Mail/Mass/Dispatch/', view_func=Mass_Mail_Dispatch.as_view('MassDispatch'))
 app.add_url_rule('/Home/Administrator/Dashboard/Clientelle/', view_func=Admin_Clientelle_Interface.as_view('Clientelle'))
 app.add_url_rule('/Home/Administrator/Dashboard/Invoice/', view_func=Admin_Invoice_Interface.as_view('Invoice'))
 app.add_url_rule('/Home/Administrator/Dashboard/Projects/', view_func=Admin_Project_Interface.as_view('Projects'))

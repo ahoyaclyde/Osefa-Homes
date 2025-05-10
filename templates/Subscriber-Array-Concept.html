@@ -6,7 +6,7 @@
   <link href="{{url_for('static' , filename='assets/css/admin-pallete.css')}}" rel="stylesheet">
   <link href="{{url_for('static' , filename='assets/css/pro-table-inline.css')}}" rel="stylesheet">
   <link href="{{url_for('static' , filename='assets/css/bootstrap.css')}}" rel="stylesheet">
-  <link href="{{url_for('static' , filename='assets/css/invoice-form.css')}}" rel="stylesheet">
+  <link href="{{url_for('static' , filename='assets/css/feedback-form.css')}}" rel="stylesheet">
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -35,8 +35,8 @@
                 
                 <ul class="side-nav">
                     <span class="side-nav__header">Main Menu</span>
-                    <a href="{{url_for('Admin')}}"></a>
-                    <li class="side-nav__item side-nav__item-active">
+                    <a href="{{url_for('Admin')}}">
+                    <li class="side-nav__item ">
                         <svg width="22" height="23" viewBox="0 0 22 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.23201 3.4202L9.23239 3.41989C10.2108 2.63408 11.7843 2.63834 12.7781 3.42994C12.7783 3.43005 12.7784 3.43015 12.7785 3.43025L18.7784 8.2301C18.7789 8.23054 18.7795 8.23099 18.78 8.23143C19.1189 8.50835 19.4146 8.94381 19.6058 9.44415C19.7968 9.94409 19.8672 10.4662 19.8014 10.8985L18.6475 17.8037C18.6474 17.8042 18.6473 17.8047 18.6472 17.8052C18.4217 19.0989 17.1608 20.1667 15.8585 20.1667H6.1418C4.81982 20.1667 3.58766 19.1252 3.36227 17.8148C3.36221 17.8145 3.36215 17.8142 3.36209 17.8138L2.20746 10.9043L2.20726 10.9032C2.13345 10.4677 2.19947 9.94466 2.39002 9.44498C2.58055 8.94535 2.87982 8.51038 3.22697 8.2334L3.22784 8.2327L9.23201 3.4202ZM11.0001 18.1876C11.6521 18.1876 12.1876 17.652 12.1876 17.0001V14.2501C12.1876 13.5981 11.6521 13.0626 11.0001 13.0626C10.3482 13.0626 9.81263 13.5981 9.81263 14.2501V17.0001C9.81263 17.652 10.3482 18.1876 11.0001 18.1876Z" fill="currentColor" stroke="currentColor"/>
                         </svg>                       
@@ -55,7 +55,7 @@
                         <span>Invoices</span>
                     </li>
                     </a>
-                    <a href="{{url_for('Admin')}}">
+                    <a href="{{url_for('Projects')}}">
                     <li class="side-nav__item">
                         <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.90576 7.32001L10.9999 12.0042L19.0391 7.34748" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -67,7 +67,7 @@
                     </li>
                     </a>
                     <a href="{{url_for('Subscribe')}}">
-                    <li class="side-nav__item">
+                    <li class="side-nav__item side-nav__item-active">
                         <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.2915 12.6367V11.0509C2.2915 9.15336 3.84067 7.60419 5.73817 7.60419H16.2615C18.159 7.60419 19.7082 9.15336 19.7082 11.0509V12.3709H17.8565C17.3432 12.3709 16.8757 12.5725 16.5365 12.9208C16.1515 13.2967 15.9315 13.8375 15.9865 14.415C16.069 15.405 16.9765 16.1292 17.9665 16.1292H19.7082V17.22C19.7082 19.1175 18.159 20.6667 16.2615 20.6667H11.2382" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M2.2915 11.8758V7.6867C2.2915 6.59587 2.96067 5.62416 3.97817 5.23916L11.2565 2.48916C12.3932 2.05833 13.6123 2.90169 13.6123 4.12085V7.60418" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -183,7 +183,7 @@
                             <rect width="24" height="24" fill="white" fill-opacity="0.01"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12ZM21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM12.0321 19C8.67459 19 6.80643 17.2316 6.80643 14V13H17.1158L17.1434 13.9715C17.2358 17.2145 15.4003 19 12.0321 19ZM15.0875 15C14.8526 16.3955 13.9089 17 12.0321 17C10.1563 17 9.18179 16.3902 8.89677 15H15.0875ZM14 8H17V10H14V8ZM10 8H7V10H10V8Z" fill="black"/>
                         </svg>
-                        <span class="user-name">Elif Duygu</span>                        
+                        <span class="user-name">ADMIN</span>                        
                     </div>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.5999 7.45837L11.1666 12.8917C10.5249 13.5334 9.4749 13.5334 8.83324 12.8917L3.3999 7.45837" stroke="#596780" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -222,119 +222,69 @@
                             <div class="modal fade" id="largeModal" tabindex="-1" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                   <div class="modal-content">
-                                   
+                                    <form action="{{url_for('MassDispatch')}}" method="POST" >
                                     <div class="modal-body">
-                                        <div class="wrapper" style="background-image: url('images/bg-registration-form-3.jpg');">
-                                            <div class="">
-                                                <form action="">
-                                                    <h3  style="margin-top:2%; margin-bottom:2%;"> Mass Campaign Dispatch </h3>
-                                                    <div class="form-group">
-                                                        <div class="form-wrapper">
-                                                            <label for=""> InvoiceID </label>
-                                                            <div class="form-holder">
-                                                                <i class="zmdi zmdi-account-o"></i>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-wrapper">
-                                                            <label for=""> BilledTo </label>
-                                                            <div class="form-holder">
-                                                               
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="form-wrapper">
-                                                            <label for=""> ProjectID </label>
-                                                            <div class="form-holder">
-                                                                <i class="zmdi zmdi-lock-outline"></i>
-                                                                <input type="text" class="form-control" placeholder=" ">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-wrapper">
-                                                            <label for=""> MiddleMan </label>
-                                                            <div class="form-holder">
-                                                                <i class="zmdi zmdi-lock-outline"></i>
-                                                                <input type="text" class="form-control" placeholder=" ">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="form-wrapper">
-                                                            <label for=""> InvoiceType </label>
-                                                            <div class="form-holder select">
-                                                                <select name="" id="" class="form-control">
-                                                                    <option value="united states">United States</option>
-                                                                    <option value="united kingdom">United Kingdom</option>
-                                                                    <option value="viet nam">Viet Nam</option>
-                                                                </select>
-                                                                <i class="zmdi zmdi-pin"></i>
-                                                            </div>
-                                                        </div>
-                                                       
-                                                        
-                                                        <div class="form-wrapper">
-                                                            <label for=""> Staked Amount :</label>
-                                                            <div class="form-holder">
-                                                               
-                                                              <input type="text" class="form-control">
-                                                          </div>
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="form-group">
-                                                    <div class="form-wrapper">
-                                                      <label for=""> Creation Time </label>
-                                                      <div class="form-holder select">
-                                                          <select name="" id="" class="form-control">
-                                                              <option value="united states">United States</option>
-                                                              <option value="united kingdom">United Kingdom</option>
-                                                              <option value="viet nam">Viet Nam</option>
-                                                          </select>
-                                                          <i class="zmdi zmdi-pin"></i>
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-wrapper">
-                                                    <label for=""> Creation Date  </label>
-                                                    <div class="form-holder select">
-                                                        <select name="" id="" class="form-control">
-                                                            <option value="united states">United States</option>
-                                                            <option value="united kingdom">United Kingdom</option>
-                                                            <option value="viet nam">Viet Nam</option>
-                                                        </select>
-                                                        <i class="zmdi zmdi-pin"></i>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                    <div class="form-group">
-                                                      
-                                                      <div class="form-wrapper" style="width:100%;">
-                                                          <label for=""> ExpiresOn  </label>
-                                                          <div class="form-holder">
-                                                              <i class="zmdi zmdi-lock-outline"></i>
-                                                              <input type="text" class="form-control" placeholder=" ">
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                                    <div class="form-end">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"> Relay inactive dispatch protocols ?  
-                                                                <span class="checkmark"></span>
-                                                            </label>
-                                                        </div>
-                                                       
-                                                        
-                                                    </div>
-                                                </form>
+                                        
+                                        <div class="">
+                                            <h2> Create Feedback </h2>
+                                            <p> Emits message emails to in-house subscribers</p>
+                                            <div class="rating-options">
+                                             
+                                              <label for="Bad" class="border">
+                                                <input type="radio" id="Bad" name="rating" value="Bad">
+                                                <span class="emoji"><i class="fa-regular fa-face-frown"></i></span>
+                                                <span> Attach </span>
+                                              </label>
+                                              <label for="Okay" class="border">
+                                                <input type="radio" id="Okay" name="rating" value="Okay">
+                                                <span class="emoji"><i class="fa-regular fa-face-meh"></i></span>
+                                                <span> Edit </span>
+                                              </label>
+                                              <label for="Good" class="border">
+                                                <input type="radio" id="Good" name="rating" value="Good" checked>
+                                                <span class="emoji"><i class="fa-regular fa-face-smile"></i></span>
+                                                <span> Format </span>
+                                              </label>
+                                              <label for="Amazing" class="border">
+                                                <input type="radio" id="Amazing" name="rating" value="Amazing">
+                                                <span class="emoji"><i class="fa-regular fa-face-laugh"></i></span>
+                                                <span> Translate </span>
+                                              </label>
                                             </div>
-                                        </div>
+
+
+
+                                         
+                                                                                        
+                                            <label for="feedback-reason"> Whats your subject matter ? </label>
+                                                <input type="text"  name="Subject"  class="subject" style="margin-bottom:2%; margin-top:2%;">
+                                                <span class="emoji"><i class="fa-regular fa-face-frown"></i></span>
+                                                
+                                        
+                                          
+                                            <label for="feedback-reason">What are the main reasons for your rating?</label>
+                                            <textarea id="feedback-reason" style="margin-bottom:2%; margin-top:2%;"></textarea>
+                                          
+                                            <div class="options">
+                                              <label class="checkbox">
+                                                <input type="checkbox" id="contact-consent" checked>
+                                                 Allow Relay Links For Attached Data  <a href="#">Privacy Policy</a>
+                                              </label>
+                                              <p id="contact-consent-error">Error: You must consent to be contacted.</p>
+                                          
+                                            
+                                            </div>
+                                            <p id="success-message">Thank you for your feedback! Your response has been submitted.</p>
+                                          
+                                          
+                                          </div>
+                                        
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
+
+                                      <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" id="submit" onclick="printResponse('Your messages are being sent in the background ')"> Dispatch </button>
                                     </div>
+                                </form>
                                   </div>
                                 </div>
                               </div><!-- End Large Modal-->
@@ -421,7 +371,14 @@
                     <!-- EOOF -->
             </div>
         </main>
+
     </div>
+    <script>
+        function printResponse(Data){
+            alert(Data);
+        }
+
+            </script>
     <script src="{{url_for('static' , filename='assets/js/chart.min.js')}}"></script>
     <script src="{{url_for('static' , filename='assets/js/chart.js')}}"></script>
     <script src="{{url_for('static' , filename='assets/js/bootstrap.bundle.min.js')}}"></script> 

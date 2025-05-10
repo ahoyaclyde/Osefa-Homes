@@ -90,7 +90,7 @@ def Create_Email(Recipient , Subject , Body):
     if Body : 
         print(Recipient , Subject , Body )
         params: resend.Emails.SendParams = {
-        "from": "osefahomes@info.com <onboarding@resend.dev>",
+        "from": "support@osefaconstructionltd.com <onboarding@resend.dev>",
         "to": [Recipient],
         "subject": Subject ,
         "html": Body ,
