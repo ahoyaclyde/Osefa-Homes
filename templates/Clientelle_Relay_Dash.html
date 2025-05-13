@@ -93,11 +93,8 @@
             <ul>
                 {% if Projects_Profiles %}
                 {% for Project in Projects_Profiles %}
-              <li><a href="#">Dropdown 1</a></li>
-              
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
+              <li><a href="#"> {{ Project }} </a></li>
+          
               {% endfor %}
               {% else %}
               <li><a href="#"> 0 Projects </a></li>
@@ -199,7 +196,7 @@
             
         </div>  
     </div>  
-    {% if Projects_Profiles %}
+    {% if Project_Profiles %}
     <section id="projects" class="projects section">
 
       <div class="container">

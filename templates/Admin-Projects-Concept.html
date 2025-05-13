@@ -105,7 +105,7 @@
                         <span>People &amp; Teams</span>
                     </li>
                     </a>
-                    <a href="{{url_for('Clientelle')}}">
+                    <a href="{{url_for('Transactions')}}">
                         <li class="side-nav__item">
                             <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.30664 17.1375V15.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -206,7 +206,7 @@
                                 </svg>                                                           
                             </div>
                             <h1 class="price"> {{Project_Index}} <span class="price-currency">(Projects)</span></h1>
-                            <p>From Jan 01, 2022 to Jan 31, 2022</p>
+                            <p>From Jan 01, 2022 to {{Dateline}}</p>
                             <div class="button-box">
                                 <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -218,7 +218,7 @@
                                     </svg>
                                     <span> View </span>    
                                 </button>
-                                <button class="btn btn-white">
+                                <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.104 13.1771C9.104 14.1066 9.82277 14.8541 10.7044 14.8541H12.5061C13.2727 14.8541 13.8957 14.2025 13.8957 13.3879C13.8957 12.5158 13.5123 12.1996 12.9469 11.9983L10.0623 10.9921C9.49692 10.7908 9.1136 10.4841 9.1136 9.60248C9.1136 8.79748 9.7365 8.13623 10.5032 8.13623H12.3048C13.1865 8.13623 13.9053 8.88373 13.9053 9.81331" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M11.5 7.1875V15.8125" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -242,7 +242,7 @@
                                 </svg>                                                           
                             </div>
                             <h1 class="price"> {{ Stale_Index}} <span class="price-currency">(Projects)</span></h1>
-                            <p>From Jan 01, 2022 to Jan 31, 2022</p>
+                            <p>From Jan 01, 2022 to {{Dateline}}</p>
                             <div class="button-box">
                                 <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -316,65 +316,79 @@
                                                                   <span>or</span>
                                                               </p>
                                                           </div>
-                                                                    <form action="#" class="signup-form">
+                                                                    <form action="{{url_for('Projects')}}" class="signup-form" method="POST" >
                                                                         <div class="row">
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                               <label class="label" for="name"> ProjectID </label>
-                                                                              <input type="text" class="form-control">
+                                                                              <input type="text" class="form-control" name="Token" value={{UID}} required>
                                                                           </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                               <label class="label" for="name"> ProjectOwner  </label>
-                                                                              <input type="text" class="form-control">
+                                                                              {% if Account_Profiles %}
+                                                                              <select type="text" class="form-control" name="Owner" required>
+                                                                               {% for Profile in Account_Profiles %}
+                                                                            <option value="{{Profile}}"> {{Profile}} </option>
+                                                                                {% endfor %}
+                                                                          
+                                                                              </select>
+                                                                              {% endif %}
                                                                           </div>
                                                                             </div>
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                               <label class="label" for="email"> Description </label>
-                                                                              <input type="text" class="form-control">
+                                                                              <input type="text" class="form-control" name="Description" required>
                                                                           </div>
                                                                           <div class="row">
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                               <label class="label" for="name"> AreaCode </label>
-                                                                              <input type="text" class="form-control">
+                                                                              <input type="text" class="form-control" name="AreaCode" required>
                                                                           </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                               <label class="label" for="name"> Commence </label>
-                                                                              <input type="text" class="form-control">
+                                                                              <input type="date" class="form-control" name="Commence" required>
                                                                           </div>
                                                                             </div>
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                               <label class="label" for="email"> Ending </label>
-                                                                              <input type="text" class="form-control">
+                                                                              <input type="date" class="form-control" name="EndDay" required>
                                                                           </div>
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
                                                                                   <label class="label" for="name"> CreationDate  </label>
-                                                                                  <input type="text" class="form-control">
+                                                                                  <input type="text" class="form-control"  name="CreatedOn" value="Dateline" required>
                                                                               </div>
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group">
                                                                                   <label class="label" for="name"> Creation Time  </label>
-                                                                                  <input type="text" class="form-control">
+                                                                                  <input type="text" class="form-control" name="CreatedAt" value="{{Timeline}}" required>
                                                                               </div>
                                                                                 </div>
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                         <label class="label" for="password"> Stake Amount  </label>
-                                                                      <input type="password" class="form-control">
+                                                                      <input type="text" class="form-control" name="GigAmount" required>
                                                                     </div>
                                                                             </div>
                                                                          
-                                
+
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                        <label class="label" for="password"> Middleman </label>
+                                                                      <input type="text" class="form-control" name="Middleman" value="Administrator" required >
+                                                                    </div>
+                                                                            </div>
+                                                                            <button type="submit" class="btn btn-primary">Save changes</button>
                                                           </form>
                                                           <div class="w-100">
                                                                         <p class="mt-4"> Migrations  & Linking <a href="#signin"> Link Projects </a></p>
@@ -390,7 +404,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
+
                                 </div>
                               </div>
                             </div>

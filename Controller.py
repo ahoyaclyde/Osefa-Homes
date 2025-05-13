@@ -42,8 +42,17 @@ def not_found(error):
 CompanyID = "Osefa Homes "
 AbstractSequences = ["DateStr" , "TimeStr"]
 
-def Render_Abstract_Time():
-    return base_controller.Space_Time_Generator(AbstractSequences[-1])
+
+def Render_Abstract_Time(SupplyOption):
+    return base_controller.Space_Time_Generator(SupplyOption)
+
+
+
+# Time Decl 
+
+Timeline = Render_Abstract_Time(AbstractSequences[-1])
+
+Dateline = Render_Abstract_Time(AbstractSequences[0])
 
 # Base Route Address For Home/Landing Page Scenarios 
 # Initial Page 
@@ -138,7 +147,7 @@ class Company_Contact_Profile(View):
 class Admin_Controller_Interface(View):
    methods = ['GET', 'POST']  
    def dispatch_request(self) -> str :
-       
+        
         if request.method == 'GET':
             Indicator = int(0) 
             Indicator_Next = int(1)  
@@ -152,6 +161,7 @@ class Admin_Controller_Interface(View):
 
             Invoiced_Profiles = control_baselink.Print_Invoices(Indicator)
             Pending_Profiles  = control_baselink.Print_Invoices (Indicator_Next)
+            Mail_Profiles = control_baselink.Print_Mail_List()
             #Checks 
             if Invoiced_Profiles:
                 Invoice_Index = len(Invoiced_Profiles)
@@ -180,10 +190,16 @@ class Admin_Controller_Interface(View):
                 Sub_Index = int(0)
 
             
+
+            if (Mail_Profiles):
+                Mail_Index = len(Mail_Profiles) 
+            else:
+                Mail_Index = int(0)
             
  
-            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID , Clientelle_Index = Clientelle_Index , Clientelle_Profiles = Clientelle_Profiles , Invoice_Index = Invoice_Index , Pending_Profiles = Pending_Profiles , Pending_Index  =  Pending_Index ,  Project_Index = Project_Index , Sub_Index = Sub_Index  )
-        else: 
+            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID , Clientelle_Index = Clientelle_Index , Clientelle_Profiles = Clientelle_Profiles , Invoice_Index = Invoice_Index , Pending_Profiles = Pending_Profiles , Pending_Index  =  Pending_Index ,  Project_Index = Project_Index , Sub_Index = Sub_Index , Timeline = Timeline  , Dateline = Dateline  , Mail_Profiles = Mail_Profiles  , Mail_Index = Mail_Index   )
+        elif request.method == "POST":
+          
             # Return requested profile thru client connect 
             return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID  )
 
@@ -193,20 +209,44 @@ class Admin_Controller_Interface(View):
 class Admin_Invoice_Interface(View):
    methods = ['GET', 'POST']  
    def dispatch_request(self) -> str :
-       
+        UID = base_controller.Construct_String_Address(10)
         if request.method == 'GET':
             Indicator = int(0)  
+
+            # Data Block For Potential Export  
             Invoiced_Profiles = control_baselink.Print_Invoices(Indicator)
+            Account_Profiles = control_baselink.Print_Clientelle_Listings(Indicator)
+            Project_Profiles = control_baselink.Print_Projects(Indicator)
+
             #Checks 
             if Invoiced_Profiles:
                 Invoice_Index = len(Invoiced_Profiles)
             else:
                 Invoice_Index = int(0) 
  
-            return render_template('Admin-Collative-Invoice.html' , CompanyID = CompanyID , Invoiced_Profiles = Invoiced_Profiles , Invoice_Index = Invoice_Index )
-        else: 
-     
+            # Checks Part 2 
+            if Account_Profiles : 
+                Account_Index =  len(Account_Profiles) 
+            else:
+                Account_Index = int(0)
 
+              # Checks Part 3
+
+            if Project_Profiles : 
+                Project_Index = len(Project_Profiles)
+            else:
+                Project_Index = int(0)
+ 
+
+            return render_template('Admin-Collative-Invoice.html' , CompanyID = CompanyID , Invoiced_Profiles = Invoiced_Profiles , Invoice_Index = Invoice_Index  ,  Timeline = Timeline , Dateline = Dateline , UID = UID , Account_Profiles = Account_Profiles  , Project_Profiles = Project_Profiles, Account_Index = Account_Index )
+        elif request.method == "POST": 
+            Feedback = list(request.form.values())
+            # Check For Length  -- If Length == 9 | OK 
+            if(len(Feedback))  == int(9):
+                control_baselink.Create_Invoice(Feedback) 
+
+                # After Submission , Go back to Invoice Page 
+                return redirect(url_for('Invoice'))
             # Return requested profile thru client connect 
             return render_template('Admin-Collative-Invoice.html' , CompanyID = CompanyID  )
         
@@ -249,10 +289,12 @@ class Admin_Project_Interface(View):
    def dispatch_request(self) -> str :
         Indicator = int(0) 
         Indicator_Next = int(1) 
-       
+        UID = base_controller.Construct_String_Address(10)
+
         if request.method == 'GET':
             Projects  = control_baselink.Print_Projects(Indicator)
             Stale_Projects = control_baselink.Print_Projects(Indicator_Next)
+            Account_Profiles = control_baselink.Print_Clientelle_Listings(Indicator)
         
             if (Projects):
                 Project_Index = len(Projects)
@@ -266,8 +308,16 @@ class Admin_Project_Interface(View):
                 Stale_Index = int(0)
 
 
-            return render_template('Admin-Projects-Concept.html' , CompanyID = CompanyID , Projects = Projects , Project_Index = Project_Index , Stale_Projects = Stale_Projects , Stale_Index = Stale_Index )
-        else: 
+            return render_template('Admin-Projects-Concept.html' , CompanyID = CompanyID , Projects = Projects , Project_Index = Project_Index , Stale_Projects = Stale_Projects , Stale_Index = Stale_Index  , UID = UID , Dateline = Dateline , Timeline = Timeline , Account_Profiles = Account_Profiles )
+        elif request.method == "POST": 
+            Feedback = list(request.form.values())
+            # Check For Length  -- If Length == 10 | OK 
+            if(len(Feedback))  == int(10):
+                control_baselink.Create_Project(Feedback) 
+
+                # After Submission , Go back to Invoice Page 
+                return redirect(url_for('Projects'))
+         
             # Return requested profile thru client connect 
             return render_template('Admin-Projects-Concept.html' , CompanyID = CompanyID  )
         
@@ -319,6 +369,7 @@ class Authenticator_Concept(View):
     methods = ['GET', 'POST']
     def dispatch_request(self) -> list :
         Connection_Manager =control_baselink.create_connection(DatabaseUrl)
+        Flag = ""
         if request.method == 'POST':
                 # - Action Zone
                 Credentials = request.form
@@ -331,19 +382,19 @@ class Authenticator_Concept(View):
                 if(PhoneTag == "0741371429"):
                     if(SecureString == "Admin"):
                         return redirect(url_for('Admin'))
+                
+                if (PhoneTag_Captcha != None ):
+                    if(Crypto_Captcha != None):
+                        return redirect(url_for("Dashboard" , AccountHolder = PhoneTag   ))
                     else:
-                        if ( PhoneTag_Captcha != None ):
-                            if(Crypto_Captcha != None):
-                                return redirect(url_for("Dashboard" ,AccountHolder = PhoneTag   ))
-                            else:
-
-                                return redirect(url_for('Auth'))
-                        else:
-
-                            return redirect(url_for('Auth'))
+                        Flag = "Incorrect Username or Password Provided !"
+                        return render_template('Auth.html' , Flag = Flag )
                 else:
-                    return render_template("Auth.html")
-        return render_template("Auth.html")
+
+                    return redirect(url_for('Auth'))
+    
+                  
+        return render_template("Auth.html") 
 
 
 class Account_Creator_Concept(View):
@@ -364,10 +415,11 @@ class Account_Creator_Concept(View):
             # improper referencing was blocking read/write to support user serialization 
             DataBank = list(request.form.values())
             control_baselink.Create_Account(DataBank)
+            return redirect(url_for('Auth'))
         # Return requested profile thru client connect 
         return render_template('CreateAccount.html' , CompanyID = CompanyID , UID = UID , CreationTime = CreationTime , CreationDate = CreationDate   )
 
-        
+            
 class Clientelle_Relay_Interface(View):
    methods = ['GET', 'POST']  
    def dispatch_request(self , AccountHolder) -> str :
@@ -378,7 +430,7 @@ class Clientelle_Relay_Interface(View):
                 if(Profile_Username):
                     print(Profile_Username)
                     Projects_Profiles =  control_baselink.Print_Project_By_Ownership(Profile_Username)
-
+                    print("this is " , Projects_Profiles)
                 if Projects_Profiles : 
                     Projects_Index = len(Projects_Profiles)
                 else:
@@ -414,6 +466,37 @@ class Mass_Mail_Dispatch(View):
         # Return requested profile thru client connect 
         return redirect(url_for('Subscribe'))        
 
+
+
+
+
+class Transactional_Processing_Interface(View):
+   methods = ['GET']  
+   def dispatch_request(self) -> str :
+       
+        if request.method == 'GET':
+            Indicator = int(0)  
+          
+            Transaction_Profiles = control_baselink.Print_Transaction_Profiles()
+            #Checks 
+            if Transaction_Profiles:
+                Transaction_Index = len(Transaction_Profiles)
+            else:
+                Transaction_Index = int(0) 
+
+
+        # Return requested profile thru client connect 
+        return render_template("Transaction_Unit_Concept.html" ,  Transaction_Profiles = Transaction_Profiles , Transaction_Index = Transaction_Index , Timeline = Timeline , Dateline = Dateline )        
+
+
+
+
+
+
+
+
+
+
 app.add_url_rule('/', view_func=Dash_Page_Context.as_view('Home'))
 app.add_url_rule('/contact/portal/', view_func=Company_Contact_Profile.as_view('Contact'))
 app.add_url_rule('/portal/account/create/', view_func=Onboarding_Platform.as_view('join'))
@@ -429,6 +512,8 @@ app.add_url_rule('/Create/Account/', view_func=Account_Creator_Concept.as_view('
 app.add_url_rule('/Home/Administrator/Mail/List/', view_func=Mail_List_Interface.as_view('Mail'))
 app.add_url_rule('/Home/Administrator/Subscribers/Listings/', view_func=Subscriber_Array_Interface.as_view('Subscribe'))
 app.add_url_rule('/Home/Clientelle/Accounts/<string:AccountHolder>/Dashboard/', view_func=Clientelle_Relay_Interface.as_view('Dashboard'))
+app.add_url_rule('/Home/Administrator/Analytics/Transactions/', view_func= Transactional_Processing_Interface.as_view('Transactions'))
+
 
 
 if __name__=='__main__':

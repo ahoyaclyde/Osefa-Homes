@@ -102,7 +102,7 @@
                     <span>People &amp; Teams</span>
                 </li>
                 </a>
-                <a href="{{url_for('Clientelle')}}">
+                <a href="{{url_for('Transactions')}}">
                     <li class="side-nav__item">
                         <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6.30664 17.1375V15.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -203,7 +203,7 @@
                                 </svg>                                                           
                             </div>
                             <h1 class="price"> {{ Invoice_Index }} <span class="price-currency">(USD)</span></h1>
-                            <p>From Jan 01, 2022 to Jan 31, 2022</p>
+                            <p>From Jan 01, 2022 to {{Dateline}}</p>
                             <div class="button-box">
                                 <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -215,7 +215,7 @@
                                     </svg>
                                     <span> View </span>    
                                 </button>
-                                <button class="btn btn-white">
+                                <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.104 13.1771C9.104 14.1066 9.82277 14.8541 10.7044 14.8541H12.5061C13.2727 14.8541 13.8957 14.2025 13.8957 13.3879C13.8957 12.5158 13.5123 12.1996 12.9469 11.9983L10.0623 10.9921C9.49692 10.7908 9.1136 10.4841 9.1136 9.60248C9.1136 8.79748 9.7365 8.13623 10.5032 8.13623H12.3048C13.1865 8.13623 13.9053 8.88373 13.9053 9.81331" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M11.5 7.1875V15.8125" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -223,7 +223,7 @@
                                         <path d="M21.0833 5.74996V1.91663H17.25" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M16.2915 6.70829L21.0832 1.91663" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
-                                    <span> Un-Hook </span>    
+                                    <span> Export Profiles </span>    
                                 </button>
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                                 </svg>                                                           
                             </div>
                             <h1 class="price"> {{ Pending_Index }} <span class="price-currency">(USD)</span></h1>
-                            <p>From Jan 01, 2022 to Jan 31, 2022</p>
+                            <p>From Jan 01, 2022 to {{Dateline}}</p>
                             <div class="button-box">
                                 <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,15 +251,15 @@
                                     </svg>
                                     <span> View </span>    
                                 </button>
-                                <button class="btn btn-white">
+                                <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.104 13.1771C9.104 14.1066 9.82277 14.8541 10.7044 14.8541H12.5061C13.2727 14.8541 13.8957 14.2025 13.8957 13.3879C13.8957 12.5158 13.5123 12.1996 12.9469 11.9983L10.0623 10.9921C9.49692 10.7908 9.1136 10.4841 9.1136 9.60248C9.1136 8.79748 9.7365 8.13623 10.5032 8.13623H12.3048C13.1865 8.13623 13.9053 8.88373 13.9053 9.81331" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M11.5 7.1875V15.8125" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M21.0832 11.5C21.0832 16.79 16.7898 21.0833 11.4998 21.0833C6.20984 21.0833 1.9165 16.79 1.9165 11.5C1.9165 6.20996 6.20984 1.91663 11.4998 1.91663" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M21.0833 5.74996V1.91663H17.25" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M16.2915 6.70829L21.0832 1.91663" stroke="#1A202C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M21.0833 5.74996V1.91663H17.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M16.2915 6.70829L21.0832 1.91663" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
-                                    <span> Un-Hook  </span>    
+                                    <span> Export Profiles  </span>    
                                 </button>
                             </div>
                         </div>
@@ -297,37 +297,50 @@
                                 <div class="modal-body">
                                     <div class="wrapper" style="background-image: url('images/bg-registration-form-3.jpg');">
                                         <div class="">
-                                            <form action="">
+                                            <form action="{{url_for('Invoice')}}" method="POST">
                                                 <h3> Create Invoice Form</h3>
                                                 <div class="form-group">
                                                     <div class="form-wrapper">
                                                         <label for=""> InvoiceID </label>
                                                         <div class="form-holder">
-                                                            <i class="zmdi zmdi-account-o"></i>
-                                                            <input type="text" class="form-control">
+                                                            <i class="zmdi zmdi-account-o"></i> 
+                                                            <input type="text" class="form-control"  name="Token" value="{{UID}}" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-wrapper">
                                                         <label for=""> BilledTo </label>
                                                         <div class="form-holder">
+                                                          {% if Account_Profiles %}
+                                                          <select name="Payee" id="{{Profile}}" class="form-control" name="Project" required>
+                                                            {% for Profile in Account_Profiles %}
+                                                            <option value="united states"> {{ Profile }} </option>
+
+                                                            {% endfor %}
+                            
+                                                        </select>
+                                                        {% endif %}
                                                            
-                                                            <input type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="form-wrapper">
                                                         <label for=""> ProjectID </label>
-                                                        <div class="form-holder">
-                                                            <i class="zmdi zmdi-lock-outline"></i>
-                                                            <input type="text" class="form-control" placeholder="********">
-                                                        </div>
+                                                        {% if Project_Profiles %}
+                                                        <select name="ProjectID" id="{{Profile}}" class="form-control" name="Project" required>
+                                                          {% for Profile in Project_Profiles %}
+                                                          <option value="Profile"> {{ Profile }} </option>
+
+                                                          {% endfor %}
+                          
+                                                      </select>
+                                                      {% endif %}
                                                     </div>
                                                     <div class="form-wrapper">
                                                         <label for=""> MiddleMan </label>
                                                         <div class="form-holder">
                                                             <i class="zmdi zmdi-lock-outline"></i>
-                                                            <input type="text" class="form-control" placeholder="********">
+                                                            <input type="text" class="form-control" placeholder="********" name="Middleman" value="Administrator" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -335,10 +348,10 @@
                                                     <div class="form-wrapper">
                                                         <label for=""> InvoiceType </label>
                                                         <div class="form-holder select">
-                                                            <select name="" id="" class="form-control">
-                                                                <option value="united states">United States</option>
-                                                                <option value="united kingdom">United Kingdom</option>
-                                                                <option value="viet nam">Viet Nam</option>
+                                                            <select name="InvoiceType" id="" class="form-control"  required>
+                                                                <option value="Cash"> Cash</option>
+                                                                <option value="Banking"> Banking Transaction </option>
+                                                                <option value="Merchants"> Online Merchants </option>
                                                             </select>
                                                             <i class="zmdi zmdi-pin"></i>
                                                         </div>
@@ -349,7 +362,7 @@
                                                         <label for=""> Staked Amount :</label>
                                                         <div class="form-holder">
                                                            
-                                                          <input type="text" class="form-control">
+                                                          <input type="text" class="form-control" name="TransactionAmount" required>
                                                       </div>
                                                     </div>
                                                 </div>
@@ -358,24 +371,15 @@
                                                 <div class="form-wrapper">
                                                   <label for=""> Creation Time </label>
                                                   <div class="form-holder select">
-                                                      <select name="" id="" class="form-control">
-                                                          <option value="united states">United States</option>
-                                                          <option value="united kingdom">United Kingdom</option>
-                                                          <option value="viet nam">Viet Nam</option>
-                                                      </select>
-                                                      <i class="zmdi zmdi-pin"></i>
+                                                    <input type="text" class="form-control" name="Created@"  value="{{Timeline}}"  readonly required>
+
+                                            
                                                   </div>
                                               </div>
                                               <div class="form-wrapper">
-                                                <label for=""> Creation Date  </label>
-                                                <div class="form-holder select">
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="united states">United States</option>
-                                                        <option value="united kingdom">United Kingdom</option>
-                                                        <option value="viet nam">Viet Nam</option>
-                                                    </select>
-                                                    <i class="zmdi zmdi-pin"></i>
-                                                </div>
+                                                <label for=""> Creation Date </label>
+                                                <input type="text" class="form-control" name="CreatedOn"  value="{{Dateline}}"  readonly required>
+
                                             </div>
                                             </div>
                                                 <div class="form-group">
@@ -384,7 +388,7 @@
                                                       <label for=""> ExpiresOn  </label>
                                                       <div class="form-holder">
                                                           <i class="zmdi zmdi-lock-outline"></i>
-                                                          <input type="text" class="form-control" placeholder="********">
+                                                          <input type="text" class="form-control" name="EndDate" value="Calculating ..."  readonly required>
                                                       </div>
                                                   </div>
                                               </div>

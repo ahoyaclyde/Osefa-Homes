@@ -104,7 +104,7 @@ def Print_Profile_Username(Bindings):
     """
     conn = create_connection(DatabaseURL)
     cur = conn.cursor()
-    cur.execute("SELECT Fullname FROM Clientelle Where Phone = ? " , ( Bindings , ))
+    cur.execute("SELECT EmailAddress FROM Clientelle Where Phone = ? " , ( Bindings , ))
 
     DatabaseFeed = cur.fetchall()
 
@@ -171,7 +171,7 @@ def Confirm_Address_Key(conn, Bindings):
     for bit in DataItem:
         print(bit)
 
-        return str(DataItem).strip("()[]'',");\
+        return str(DataItem).strip("()[]'',");
 
 
 def Confirm_Access_Token(conn, Bindings):
@@ -371,7 +371,6 @@ def Print_Projects(Bindings):
 
 def Print_Project_By_Ownership(Bindings):
   
-      
     """
     Query all DatabaseFeed in theProperty_Schema table
     :param conn: the Connection object
@@ -379,14 +378,13 @@ def Print_Project_By_Ownership(Bindings):
     """
     conn = create_connection(DatabaseURL)
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Projects Where ProjectOwner = ? " , ( Bindings , ))
+    cur.execute("SELECT ProjectID FROM Projects Where ProjectOwner = ?" , ( Bindings , ))
 
     DatabaseFeed = cur.fetchall()
 
     for DataChunk in DatabaseFeed:
-        print(str(DataChunk))
-    return  DatabaseFeed
-
+        print(DataChunk)
+    return (DatabaseFeed)
 
 
 
@@ -501,6 +499,53 @@ def Print_Subscribers_Contacts(Bindings):
     conn = create_connection(DatabaseURL)
     cur = conn.cursor()
     cur.execute("SELECT SubsContact FROM Subscribers Where IsExistent = ? " , ( Bindings , ))
+
+    DatabaseFeed = cur.fetchall()
+
+    for DataChunk in DatabaseFeed:
+        print(DataChunk)
+    return DatabaseFeed
+
+
+
+
+### Mail_CHarter Block 
+### Emails 
+
+
+
+def Create_Transaction(Property):
+    """
+    Create a new PropertyName into the PropertyNames table
+    :param conn:
+    :param PropertyName:
+    :return: PropertyName id
+    """
+    conn = create_connection(DatabaseURL)
+    with app.app_context():
+        
+        sql = '''INSERT INTO Transaction (TransactionID , Issuer , ReceivedBy , Platform , GrossAmount , CreationTime , CreationDate , Reference , BalanceOf , IsExistent)
+            VALUES(?,?,?,?,?,?,?,?,?,?) '''
+        cur = conn.cursor()
+        cur.execute(sql,Property)
+        conn.commit()
+        conn.close()
+        return "Success"
+    
+
+
+
+def Print_Transaction_Profiles():
+  
+      
+    """
+    Query all DatabaseFeed in theProperty_Schema table
+    :param conn: the Connection object
+    :return:
+    """
+    conn = create_connection(DatabaseURL)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Transactions ")
 
     DatabaseFeed = cur.fetchall()
 
