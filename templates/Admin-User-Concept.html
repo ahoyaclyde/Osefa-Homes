@@ -8,7 +8,17 @@
   <link href="{{url_for('static' , filename='assets/css/bootstrap.css')}}" rel="stylesheet">
   <link href="{{url_for('static' , filename='assets/css/alertcard.css')}}" rel="stylesheet">
 
+
 </head>
+<style>
+  #display-fx{
+      display: block;
+  }
+
+  #fx-display{
+      display:none;
+  }
+</style>
 <body>
 <!-- partial:index.partial.html -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -205,7 +215,7 @@
                     <h1 class="price"> {{ Clientelle_Index }} <span class="price-currency">(Clients)</span></h1>
                     <p><span class="percentage-increase">20%</span>  Tally of  active account profiles </p>
                     <div class="button-box">
-                        <button class="btn btn-purple">
+                        <button class="btn btn-purple" onclick="changeOverSwitch()">
                             <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.104 13.1771C9.104 14.1066 9.82277 14.8541 10.7044 14.8541H12.5061C13.2727 14.8541 13.8957 14.2025 13.8957 13.3879C13.8957 12.5158 13.5123 12.1996 12.9469 11.9983L10.0623 10.9921C9.49692 10.7908 9.1136 10.4841 9.1136 9.60248C9.1136 8.79748 9.7365 8.13623 10.5032 8.13623H12.3048C13.1865 8.13623 13.9053 8.88373 13.9053 9.81331" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                 <path d="M11.5 7.1875V15.8125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -230,7 +240,7 @@
                     <h1 class="price"> {{ Inactive_Index }} <span class="price-currency">(Clients)</span></h1>                            
                     <p><span class="percentage-decrease">10%</span>  Tally of inactive account profiles </p>
                     <div class="button-box">
-                        <button class="btn btn-purple">
+                        <button class="btn btn-purple" onclick="changeOverSwitch()">
                             <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.104 13.1771C9.104 14.1066 9.82277 14.8541 10.7044 14.8541H12.5061C13.2727 14.8541 13.8957 14.2025 13.8957 13.3879C13.8957 12.5158 13.5123 12.1996 12.9469 11.9983L10.0623 10.9921C9.49692 10.7908 9.1136 10.4841 9.1136 9.60248C9.1136 8.79748 9.7365 8.13623 10.5032 8.13623H12.3048C13.1865 8.13623 13.9053 8.88373 13.9053 9.81331" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                 <path d="M11.5 7.1875V15.8125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -248,7 +258,7 @@
 
 
 
-            <div class="bottom-container">
+            <div class="bottom-container" id="display-fx">
           
                <div class="box" style="width:100%;">
                         <div class="header-container">
@@ -272,45 +282,7 @@
                         </div>
                         <div class="box" style="width:100%;">
                            
-                            <div class="modal fade" id="Export" tabindex="-1" style="display: none;" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
-                                  <div class="modal-content">
-                                   
-                                    <div class="modal-body">
-                                        <div class="card">
-                                            <img src="https://res.cloudinary.com/alexandracaulea/image/upload/v1582179610/user_fckc9f.jpg" alt="User image" class="card__image">
-                                            <div class="card__text">
-                                              <h2>Alexandra Caulea</h2>
-                                              <p>I enjoy drinking a cup of coffee every day</p>
-                                            </div>
-                                            <ul class="card__info">
-                                              <li>
-                                                <span class="card__info__stats">172</span>
-                                                <span>posts</span>
-                                              </li>
-                                              <li>
-                                                <span class="card__info__stats">47</span>
-                                                <span>followers</span>
-                                              </li>
-                                              <li>
-                                                <span class="card__info__stats">20</span>
-                                                <span>following</span>
-                                              </li>
-                                            </ul>
-                                            <div class="card__action">
-                                              <button class="card__action__button card__action--follow">follow</button>
-                                              <button class="card__action__button card__action--message">message</button>
-                                            </div>
-                                          </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div><!-- End Large Modal-->
-                
+                         
                             <div class="table-responsive">
     
                                 <table class="table table-striped custom-table" style="width:100%;">
@@ -384,52 +356,15 @@
                                             <div class="d-flex align-items-center">
                                               
                             
-                                              <button href="#" class="name" data-bs-toggle="modal" data-bs-target="#{{Profile[0]}}"> 
-                                                View </button>
+                                              <button  class="" data-bs-toggle="modal" data-bs-target="#{{Profile[0]}}"> 
+                                                Delete </button>
                                             </div>
                                           </td>
                                    
                                     </tr>
 
                                        
-                            <div class="modal fade" id="{{Profile[0]}}"  style="display: none;" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
-                                  <div class="modal-content">
-                                   
-                                    <div class="modal-body">
-                                        <div class="card">
-                                            <img src="https://res.cloudinary.com/alexandracaulea/image/upload/v1582179610/user_fckc9f.jpg" alt="User image" class="card__image">
-                                            <div class="card__text">
-                                              <h2> {{Profile[1]}} </h2>
-                                              <p>I enjoy drinking a cup of coffee every day</p>
-                                            </div>
-                                            <ul class="card__info">
-                                              <li>
-                                                <span class="card__info__stats">172</span>
-                                                <span>posts</span>
-                                              </li>
-                                              <li>
-                                                <span class="card__info__stats">47</span>
-                                                <span>followers</span>
-                                              </li>
-                                              <li>
-                                                <span class="card__info__stats">20</span>
-                                                <span>following</span>
-                                              </li>
-                                            </ul>
-                                            <div class="card__action">
-                                              <button class="card__action__button card__action--follow">follow</button>
-                                              <button class="card__action__button card__action--message">message</button>
-                                            </div>
-                                          </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div><!-- End Large Modal-->
+                         
                 
                                     {% endfor %}
                         
@@ -443,8 +378,153 @@
                     
                     <!-- EOOF -->
             </div>
+
+
+
+            <div class="bottom-container" id="fx-display">
+          
+              <div class="box" style="width:100%;">
+                       <div class="header-container">
+                           <h3 class="section-header"> Inactive Clientelle Profiles <sup> {{Inactive_Index }} </sup></h3>
+                           <div class="date-selector" data-bs-toggle="modal" data-bs-target="#Export">
+                               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   <path d="M6 1.5V3.75" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M12 1.5V3.75" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M2.625 6.8175H15.375" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M15.75 6.375V12.75C15.75 15 14.625 16.5 12 16.5H6C3.375 16.5 2.25 15 2.25 12.75V6.375C2.25 4.125 3.375 2.625 6 2.625H12C14.625 2.625 15.75 4.125 15.75 6.375Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M11.7713 10.275H11.778" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M11.7713 12.525H11.778" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M8.99686 10.275H9.00359" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M8.99686 12.525H9.00359" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M6.22049 10.275H6.22723" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M6.22049 12.525H6.22723" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                               </svg>
+                               <span>  Remove Profiles </span>       
+                           </div>         
+                                                  
+                       </div>
+                       <div class="box" style="width:100%;">
+                          
+                        
+                           <div class="table-responsive">
+   
+                               <table class="table table-striped custom-table" style="width:100%;">
+                                 <thead>
+                                   <tr>
+                                     <th scope="col">
+                                       <label class="control control--checkbox">
+                                         <input type="checkbox" class="js-check-all">
+                                         <div class="control__indicator"></div>
+                                       </label>
+                                     </th>
+                                     <th scope="col">Client ID </th>
+                                     <th scope="col">Email Address</th>
+                                     <th scope="col">Fullname </th>
+                                     <th scope="col">Phone</th>
+                                     <th scope="col"> CreationDate</th>
+                                     <th scope="col"> CreationTime</th>
+                                     <th scope="col"> AccountType </th>
+                                     <th scope="col"> IsExistent </th>
+                                     
+                                   </tr>
+                                 </thead>
+                                 {% if Inactive_Profiles %}
+                                 <tbody>
+                                   {% for Profile in Inactive_Profiles %}
+                                   <tr scope="row">
+                                     <td>
+                                       <label class="control control--checkbox">
+                                       <input type="checkbox">
+                                       <div class="control__indicator"></div>
+                                       </label>
+                                     </td>
+                                     <td>
+                                     {{Profile[0]}}
+                                     </td>
+                                     <td class="pl-0">
+                                       <div class="d-flex align-items-center">
+                                         
+                       
+                                         <a href="#" class="name"> 
+                                           {{Profile[1]}}</a>
+                                       </div>
+                                     </td>
+                                     <td>
+                                       
+                                     {{Profile[2]}}
+                                       
+                                     </td>
+                                     <td> 
+                                       {{Profile[3]}}
+                                   
+                                     </td> 
+                                     
+                                       <td> 
+                                           {{Profile[5]}}
+                                           
+                                       </td> 
+                                       <td> 
+                                           {{Profile[6]}}
+                                           
+                                       </td> 
+                                     
+                                       <td> 
+                                           {{Profile[7]}}
+                                           
+                                       </td> 
+                                       <td> 
+                                           {{Profile[8]}}
+                                       </td>
+                                      
+                                       <td class="pl-0" style="background-color:#fefefe;">
+                                           <div class="d-flex align-items-center">
+                                             
+                           
+                                             <button  class="" data-bs-toggle="modal" data-bs-target="#{{Profile[0]}}"> 
+                                               Restore </button>
+                                           </div>
+                                         </td>
+                                  
+                                   </tr>
+
+                                      
+                        
+               
+                                   {% endfor %}
+                       
+                                  
+                                   
+                                 </tbody>
+                                 {% else %}
+                                 <p> No Inactive Users Found </p>
+
+                                 {% endif %}
+                               </table>
+                             </div>
+                       </div>
+                   </div>  
+                   
+                   <!-- EOOF -->
+           </div>
         </main>
     </div>
+    <script>
+      function changeOverSwitch(){
+  
+  columnView = document.getElementById('display-fx')
+  tableView = document.getElementById('fx-display')
+ 
+ 
+  if(tableView.style.display === 'none'){
+   tableView.style.display = 'block';
+   columnView.style.display = 'none';
+  }else{ 
+   tableView.style.display = 'none'
+  columnView.style.display = 'block' ; 
+   
+  }
+ }
+ </script>
     <script src="{{url_for('static' , filename='assets/js/chart.min.js')}}"></script>
     <script src="{{url_for('static' , filename='assets/js/chart.js')}}"></script>
     <script src="{{url_for('static' , filename='assets/js/bootstrap.bundle.min.js')}}"></script>

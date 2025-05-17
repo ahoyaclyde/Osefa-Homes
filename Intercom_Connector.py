@@ -64,6 +64,26 @@ def Print_Clientelle_Listings(AccountType):
     """
     conn = create_connection(DatabaseURL)
     cur = conn.cursor()
+    cur.execute("SELECT EmailAddress FROM Clientelle Where AccountType = ? " , (AccountType,))
+
+    DatabaseFeed = cur.fetchall()
+
+    for DataChunk in DatabaseFeed:
+        print(DataChunk)
+    return (DatabaseFeed)
+
+
+
+def Print_Clientelle(AccountType):
+    if not AccountType:
+        AccountType = "Standard"
+    """
+    Query all DatabaseFeed in theProperty_Schema table
+    :param conn: the Connection object
+    :return:
+    """
+    conn = create_connection(DatabaseURL)
+    cur = conn.cursor()
     cur.execute("SELECT * FROM Clientelle Where AccountType = ? " , (AccountType,))
 
     DatabaseFeed = cur.fetchall()
@@ -369,6 +389,28 @@ def Print_Projects(Bindings):
     return DatabaseFeed
 
 
+
+
+
+def Print_Projects_Headname():
+  
+      
+    """
+    Query all DatabaseFeed in theProperty_Schema table
+    :param conn: the Connection object
+    :return:
+    """
+    conn = create_connection(DatabaseURL)
+    cur = conn.cursor()
+    cur.execute("SELECT ProjectID FROM Projects " )
+
+    DatabaseFeed = cur.fetchall()
+
+    for DataChunk in DatabaseFeed:
+        print(DataChunk)
+    return DatabaseFeed
+
+
 def Print_Project_By_Ownership(Bindings):
   
     """
@@ -498,7 +540,7 @@ def Print_Subscribers_Contacts(Bindings):
     """
     conn = create_connection(DatabaseURL)
     cur = conn.cursor()
-    cur.execute("SELECT SubsContact FROM Subscribers Where IsExistent = ? " , ( Bindings , ))
+    cur.execute("SELECT SubsEmail FROM Subscribers Where IsExistent = ? " , ( Bindings , ))
 
     DatabaseFeed = cur.fetchall()
 
@@ -524,8 +566,8 @@ def Create_Transaction(Property):
     conn = create_connection(DatabaseURL)
     with app.app_context():
         
-        sql = '''INSERT INTO Transaction (TransactionID , Issuer , ReceivedBy , Platform , GrossAmount , CreationTime , CreationDate , Reference , BalanceOf , IsExistent)
-            VALUES(?,?,?,?,?,?,?,?,?,?) '''
+        sql = '''INSERT INTO Transactions(TransactionID , Issuer , ReceivedBy , Platform , GrossAmount , CreationTime , CreationDate , Reference , BalanceOf , IsExistent)
+            VALUES(?,?,?,?,?,?,?,?,?,0) '''
         cur = conn.cursor()
         cur.execute(sql,Property)
         conn.commit()
@@ -535,7 +577,7 @@ def Create_Transaction(Property):
 
 
 
-def Print_Transaction_Profiles():
+def Print_Transaction_Profiles(Bindings):
   
       
     """
@@ -545,7 +587,7 @@ def Print_Transaction_Profiles():
     """
     conn = create_connection(DatabaseURL)
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Transactions ")
+    cur.execute("SELECT * FROM Transactions WHERE IsExistent = ? " , (Bindings,))
 
     DatabaseFeed = cur.fetchall()
 
@@ -575,3 +617,6 @@ Property = ("84989839" , "ahoyaclyde@gmail.com" , "Clydenso Dela gaza" , "072453
 
 #Subscriber = ("GKE-34343", "Clyde Javis" , "0724353242" , "ahoyaclyde@gmail.com" , "3/4/35" , "4:20 AM"  )
 #Create_Subscriber(Subscriber)
+
+#Transaction = ("TR-3020020" , "Clyde Javis" , "OnlineServices" , "Mpesa" , "450000" , "4:43:00 PM" , "12/2/1922" , "MTRDWKWIIDDD" , 0 )
+#Create_Transaction(Transaction)

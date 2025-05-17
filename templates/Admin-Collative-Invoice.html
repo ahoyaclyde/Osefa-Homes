@@ -6,8 +6,17 @@
   <link href="{{url_for('static' , filename='assets/css/admin-pallete.css')}}" rel="stylesheet">
   <link href="{{url_for('static' , filename='assets/css/bootstrap.css')}}" rel="stylesheet">
   <link href="{{url_for('static' , filename='assets/css/invoice-form.css')}}" rel="stylesheet">
+  <link href="{{url_for('static' , filename='assets/css/payinvoice.css')}}" rel="stylesheet">
 </head>
+<style>
+  #display-fx{
+      display: block;
+  }
 
+  #fx-display{
+      display:none;
+  }
+</style>
 <body>
 <!-- partial:index.partial.html -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -203,9 +212,9 @@
                                 </svg>                                                           
                             </div>
                             <h1 class="price"> {{ Invoice_Index }} <span class="price-currency">(USD)</span></h1>
-                            <p>From Jan 01, 2022 to {{Dateline}}</p>
+                            <p>From {{DeployDate}} to {{Dateline}}</p>
                             <div class="button-box">
-                                <button class="btn btn-purple">
+                                <button class="btn btn-purple" onclick="changeOverSwitch()">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.104 13.1771C9.104 14.1066 9.82277 14.8541 10.7044 14.8541H12.5061C13.2727 14.8541 13.8957 14.2025 13.8957 13.3879C13.8957 12.5158 13.5123 12.1996 12.9469 11.9983L10.0623 10.9921C9.49692 10.7908 9.1136 10.4841 9.1136 9.60248C9.1136 8.79748 9.7365 8.13623 10.5032 8.13623H12.3048C13.1865 8.13623 13.9053 8.88373 13.9053 9.81331" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M11.5 7.1875V15.8125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -239,9 +248,9 @@
                                 </svg>                                                           
                             </div>
                             <h1 class="price"> {{ Pending_Index }} <span class="price-currency">(USD)</span></h1>
-                            <p>From Jan 01, 2022 to {{Dateline}}</p>
-                            <div class="button-box">
-                                <button class="btn btn-purple">
+                            <p>From {{DeployDate}} to {{Dateline}}</p>
+                            <div class="button-box"> 
+                                <button class="btn btn-purple" onclick="changeOverSwitch()">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.104 13.1771C9.104 14.1066 9.82277 14.8541 10.7044 14.8541H12.5061C13.2727 14.8541 13.8957 14.2025 13.8957 13.3879C13.8957 12.5158 13.5123 12.1996 12.9469 11.9983L10.0623 10.9921C9.49692 10.7908 9.1136 10.4841 9.1136 9.60248C9.1136 8.79748 9.7365 8.13623 10.5032 8.13623H12.3048C13.1865 8.13623 13.9053 8.88373 13.9053 9.81331" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M11.5 7.1875V15.8125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -249,7 +258,7 @@
                                         <path d="M16.2915 2.875V6.70833H20.1248" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M21.0832 1.91663L16.2915 6.70829" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
-                                    <span> View </span>    
+                                    <span > View </span>    
                                 </button>
                                 <button class="btn btn-purple">
                                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -266,11 +275,11 @@
                     </div>
             </div>
             
-            <div class="bottom-container">
+            <div class="bottom-container" id="display-fx">
             
                 <div class="box" style="width:100%;">
                     <div class="header-container">
-                        <h3 class="section-header"> Connected Clientelle <sup> {{Clientelle_Index }} </sup></h3>
+                        <h3 class="section-header"> Invoiced Transactions <sup> {{Invoice_Index }} </sup></h3>
                         <div class="date-selector" data-bs-toggle="modal" data-bs-target="#largeModal">
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6 1.5V3.75" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -393,14 +402,9 @@
                                                   </div>
                                               </div>
                                                 <div class="form-end">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
+                                                   
                                                     <div class="button-holder">
-                                                        <button>Register Now</button>
+                                                        <button type="submit"> Create Invoice</button>
                                                     </div>
                                                     
                                                 </div>
@@ -410,7 +414,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -701,8 +705,343 @@
                     
                     <!-- EOOF -->
             </div>
+
+              
+            <div class="bottom-container" id="fx-display">
+            
+              <div class="box" style="width:100%;">
+                  <div class="header-container">
+                      <h3 class="section-header"> Pending Transactions <sup> {{Invoice_Index }} </sup></h3>
+                      <div class="date-selector" data-bs-toggle="modal" data-bs-target="#largeModal">
+                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6 1.5V3.75" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M12 1.5V3.75" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M2.625 6.8175H15.375" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M15.75 6.375V12.75C15.75 15 14.625 16.5 12 16.5H6C3.375 16.5 2.25 15 2.25 12.75V6.375C2.25 4.125 3.375 2.625 6 2.625H12C14.625 2.625 15.75 4.125 15.75 6.375Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M11.7713 10.275H11.778" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M11.7713 12.525H11.778" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M8.99686 10.275H9.00359" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M8.99686 12.525H9.00359" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M6.22049 10.275H6.22723" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M6.22049 12.525H6.22723" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          <span>  Export </span>       
+                      </div>         
+                                             
+                  </div>
+                  <div class="box" style="width:100%;">
+                     
+                      {% if Pending_Invoices %}
+                      <div class="table-responsive">
+
+                          <table class="table table-striped custom-table" style="width:100%;">
+                            <thead>
+                              <tr>
+                                <th scope="col">
+                                  <label class="control control--checkbox">
+                                    <input type="checkbox" class="js-check-all">
+                                    <div class="control__indicator"></div>
+                                  </label>
+                                </th>
+                                <th scope="col"> Invoice ID </th>
+                                <th scope="col"> Billed To </th>
+                                <th scope="col"> ProjectTag </th>
+                                <th scope="col"> MiddleMan </th>
+                                <th scope="col"> CreationDate</th>
+                                <th scope="col"> CreationTime</th>
+                                <th scope="col"> AccountType </th>
+                                <th scope="col"> IsExistent </th>
+                                
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for Profile in Pending_Invoices %}
+                              <tr scope="row">
+                                <td>
+                                  <label class="control control--checkbox">
+                                  <input type="checkbox">
+                                  <div class="control__indicator"></div>
+                                  </label>
+                                </td>
+                                <td>
+                                {{Profile[0]}}
+                                </td>
+                                <td class="pl-0">
+                                  <div class="d-flex align-items-center">
+                                    
+                  
+                                    <a href="#" class="name"> 
+                                      {{Profile[1]}}</a>
+                                  </div>
+                                </td>
+                                <td>
+                                  
+                                {{Profile[2]}}
+                                  
+                                </td>
+                                <td> 
+                                  {{Profile[3]}}
+                              
+                                </td> 
+                                
+                                  <td> 
+                                      {{Profile[5]}}
+                                      
+                                  </td> 
+                                  <td> 
+                                      {{Profile[6]}}
+                                      
+                                  </td> 
+                                
+                                  <td> 
+                                      {{Profile[7]}}
+                                      
+                                  </td> 
+                                  <td> 
+                                      {{Profile[8]}}
+                                  </td>
+                                 
+                                  <td class="pl-0" style="background-color:#fefefe;">
+                                      <div class="d-flex align-items-center">
+                                        
+                      
+                                        <button  class="date-selector" style="margin-left:5%;" data-bs-toggle="modal" data-bs-target="#InvoiceView"> 
+                                          Inspect </button>
+                                      </div>
+                                    </td>
+                             
+                              </tr>
+
+                      <div class="modal fade" id="InvoiceView" tabindex="-1" style="display: none;" aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                             
+                              <div class="modal-body">
+                                  <div class="screen flex-center">
+                                     
+                                        <div class="close-btn pointer flex-center p-sm">
+                                          <i class="ai-cross"></i>
+                                        </div>
+                                        
+                                          <!-- CARD FORM -->
+                                          <div class="flex-fill flex-vertical">
+                                            <div class="header flex-between flex-vertical-center">
+                                              <div class="flex-vertical-center">
+                                                <i class="ai-bitcoin-fill size-xl pr-sm f-main-color"></i>
+                                                <span class="title">
+                                                  <strong> {{CompanyID}} </strong><span> Invoices </span>
+                                                </span>
+                                              </div>
+                                              <div class="timer" data-id="timer">
+                                                <span>0</span><span>3</span>
+                                                <em>:</em>
+                                                <span>0</span><span>4</span>
+                                              </div>
+                                            </div>
+                                            <div class="card-data flex-fill flex-vertical">
+                                              
+                                              <!-- Card Number -->
+                                              <div class="flex-between flex-vertical-center">
+                                                <div class="card-property-title">
+                                                  <strong>Card Number</strong>
+                                                  <span>Enter 16-digit card number on the card</span>
+                                                </div>
+                                                <div class="f-main-color pointer"><i class="ai-pencil"></i> Edit</div>
+                                              </div>
+                                              
+                                              <!-- Card Field -->
+                                              <div class="flex-between">
+                                                <div class="card-number flex-vertical-center flex-fill">
+                                                  <div class="card-number-field flex-vertical-center flex-fill">
+                                                    
+                                                    
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px"><path fill="#ff9800" d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"></path><path fill="#d50000" d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"></path><path fill="#ff3d00" d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"></path></svg>
+                                                    
+                                                    
+                                                    
+                                                    <!--
+                                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="24px" height="24px"><path fill="#F44336" d="M33 11A13 13 0 1 0 33 37A13 13 0 1 0 33 11Z"/><path fill="#2196F3" d="M28,24h-8c0-0.682,0.068-1.347,0.169-2h7.661c-0.105-0.685-0.255-1.354-0.464-2h-6.732c0.225-0.694,0.508-1.362,0.84-2h5.051c-0.369-0.709-0.804-1.376-1.293-2h-2.465c0.379-0.484,0.79-0.941,1.233-1.367c-0.226-0.218-0.455-0.432-0.696-0.633c-2.252-1.872-5.146-3-8.304-3C7.82,11,2,16.82,2,24s5.82,13,13,13c3.496,0,6.664-1.388,9-3.633c0.443-0.426,0.854-0.883,1.232-1.367h-2.465c-0.489-0.624-0.923-1.291-1.293-2h5.051c0.333-0.638,0.616-1.306,0.841-2h-6.732c-0.209-0.646-0.358-1.315-0.464-2h7.661C27.932,25.347,28,24.682,28,24z"/></svg>
+                                                    -->
+                                                    
+                                                    <!--
+                                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="24px" height="24px"><path fill="#1565C0" d="M45,35c0,2.209-1.791,4-4,4H7c-2.209,0-4-1.791-4-4V13c0-2.209,1.791-4,4-4h34c2.209,0,4,1.791,4,4V35z"/><path fill="#FFF" d="M15.186 19l-2.626 7.832c0 0-.667-3.313-.733-3.729-1.495-3.411-3.701-3.221-3.701-3.221L10.726 30v-.002h3.161L18.258 19H15.186zM17.689 30L20.56 30 22.296 19 19.389 19zM38.008 19h-3.021l-4.71 11h2.852l.588-1.571h3.596L37.619 30h2.613L38.008 19zM34.513 26.328l1.563-4.157.818 4.157H34.513zM26.369 22.206c0-.606.498-1.057 1.926-1.057.928 0 1.991.674 1.991.674l.466-2.309c0 0-1.358-.515-2.691-.515-3.019 0-4.576 1.444-4.576 3.272 0 3.306 3.979 2.853 3.979 4.551 0 .291-.231.964-1.888.964-1.662 0-2.759-.609-2.759-.609l-.495 2.216c0 0 1.063.606 3.117.606 2.059 0 4.915-1.54 4.915-3.752C30.354 23.586 26.369 23.394 26.369 22.206z"/><path fill="#FFC107" d="M12.212,24.945l-0.966-4.748c0,0-0.437-1.029-1.573-1.029c-1.136,0-4.44,0-4.44,0S10.894,20.84,12.212,24.945z"/></svg>
+                                                    -->
+                                    
+                                                 
+                                                    <input class="numbers" type="number" placeholder="0000" data-bound="carddigits_mock" data-def="0000" value="{{Profile[2]}}">
+                                                  </div>
+                                                  <i class="ai-circle-check-fill size-lg f-main-color"></i>
+                                                </div>
+                                              </div>
+                                              
+                                              <!-- Expiry Date -->
+                                              <div class="flex-between">
+                                                <div class="card-property-title">
+                                                  <strong>Expiry Date</strong>
+                                                  <span>Enter the expiration date of the card</span>
+                                                </div>
+                                                <div class="card-property-value flex-vertical-center">
+                                                  <div class="input-container half-width">
+                                                    <input class="numbers" data-bound="mm_mock" data-def="00" type="number" min="1" max="12" step="1" placeholder="MM" value="{{Profile[3]}}">  
+                                                  </div>
+                                                  <span class="m-md">/</span>
+                                                  <div class="input-container half-width">
+                                                    <input class="numbers" data-bound="yy_mock" data-def="01" type="number" min="23" max="99" step="1" placeholder="YY" value="{{Profile[4]}}">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+                                              <!-- CCV Number -->
+                                              <div class="flex-between">
+                                                <div class="card-property-title">
+                                                  <strong>CVC Number</strong>
+                                                  <span>Enter card verification code from the back of the card</span>
+                                                </div>
+                                                <div class="card-property-value">
+                                                  <div class="input-container">
+                                                    <input id="cvc" type="text" value="{{Profile[5]}}">
+                                                    <i id="cvc_toggler" data-target="cvc" class="ai-eye-open pointer"></i>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+                                              <!-- Name -->
+                                              <div class="flex-between">
+                                                <div class="card-property-title">
+                                                  <strong>Cardholder Name</strong>
+                                                  <span>Enter cardholder's name</span>
+                                                </div>
+                                                <div class="card-property-value">
+                                                  <div class="input-container">
+                                                    <input id="name" data-bound="name_mock" data-def="Mr. Cardholder" type="text" class="uppercase" placeholder="CARDHOLDER NAME" value="{{Profile[6]}}">
+                                                    <i class="ai-person"></i>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+                                              
+                                            </div>
+                                            <div class="action flex-center">
+                                              <button type="submit" class="b-main-color pointer"> Send Payment Notification </button>
+                                            </div>
+                                          </div>
+                                        
+                                          <!-- SIDEBAR -->
+                                          <div class="sidebar flex-vertical">
+                                            <div>
+                                            
+                                            </div>
+                                            <div class="purchase-section flex-fill flex-vertical">
+                                              
+                                              <div class="card-mockup flex-vertical">
+                                                <div class="flex-fill flex-between">
+                                                  <i class="ai-bitcoin-fill size-xl f-secondary-color"></i>
+                                                  <i class="ai-wifi size-lg f-secondary-color"></i>
+                                                </div>
+                                                <div>
+                                                  <div id="name_mock" class="size-md pb-sm uppercase ellipsis">{{Profile[2]}} </div>
+                                                  <div class="size-md pb-md">
+                                                    <strong>
+                                                      <span class="pr-sm">
+                                                        ••••
+                                                      </span>
+                                                      <span id="carddigits_mock">0000</span>
+                                                    </strong>
+                                                  </div>
+                                                  <div class="flex-between flex-vertical-center">
+                                                    <strong class="size-md">
+                                                      <span id="mm_mock">00</span>/<span id="yy_mock">01</span>
+                                                    </strong>
+                                                    
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px"><path fill="#ff9800" d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"></path><path fill="#d50000" d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"></path><path fill="#ff3d00" d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"></path></svg>
+                                                    
+                                                    <!--
+                                                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="24px" height="24px"><path fill="#1565C0" d="M45,35c0,2.209-1.791,4-4,4H7c-2.209,0-4-1.791-4-4V13c0-2.209,1.791-4,4-4h34c2.209,0,4,1.791,4,4V35z"/><path fill="#FFF" d="M15.186 19l-2.626 7.832c0 0-.667-3.313-.733-3.729-1.495-3.411-3.701-3.221-3.701-3.221L10.726 30v-.002h3.161L18.258 19H15.186zM17.689 30L20.56 30 22.296 19 19.389 19zM38.008 19h-3.021l-4.71 11h2.852l.588-1.571h3.596L37.619 30h2.613L38.008 19zM34.513 26.328l1.563-4.157.818 4.157H34.513zM26.369 22.206c0-.606.498-1.057 1.926-1.057.928 0 1.991.674 1.991.674l.466-2.309c0 0-1.358-.515-2.691-.515-3.019 0-4.576 1.444-4.576 3.272 0 3.306 3.979 2.853 3.979 4.551 0 .291-.231.964-1.888.964-1.662 0-2.759-.609-2.759-.609l-.495 2.216c0 0 1.063.606 3.117.606 2.059 0 4.915-1.54 4.915-3.752C30.354 23.586 26.369 23.394 26.369 22.206z"/><path fill="#FFC107" d="M12.212,24.945l-0.966-4.748c0,0-0.437-1.029-1.573-1.029c-1.136,0-4.44,0-4.44,0S10.894,20.84,12.212,24.945z"/></svg>
+                                                    -->
+                                    
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+                                              <ul class="purchase-props">
+                                                <li class="flex-between">
+                                                  <span>Company</span>
+                                                  <strong>Apple</strong>
+                                                </li>
+                                                <li class="flex-between">
+                                                  <span>Order number</span>
+                                                  <strong>429252965</strong>
+                                                </li>
+                                                <li class="flex-between">
+                                                  <span>Product</span>
+                                                  <strong>MacBook Air</strong>
+                                                </li>
+                                                <li class="flex-between">
+                                                  <span>VAT (20%)</span>
+                                                  <strong>$100.00</strong>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                            <div class="separation-line"></div>
+                                            <div class="total-section flex-between flex-vertical-center">
+                                              <div class="flex-fill flex-vertical">
+                                                <div class="total-label f-secondary-color">You have to Pay</div>
+                                                <div>
+                                                  <strong>{{Profile[7]}} </strong>
+                                                  <small>.00 <span class="f-secondary-color">KSH</span></small>
+                                                </div>
+                                              </div>
+                                              <i class="ai-coin size-lg"></i>
+                                            </div>
+                                          </div>
+                                      
+                                    </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div><!-- End Large Modal-->
+          
+                              {% endfor %}
+                  
+                             
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                      {% else %}
+                      <p style="text-align: center;"> No Pending Invoice Transaction </p>
+                      {% endif %}
+                  </div>
+              </div>  
+                  
+                  <!-- EOOF -->
+          </div>
+
+
+            
         </main>
     </div>
+    <script>
+      function changeOverSwitch(){
+  
+  columnView = document.getElementById('display-fx')
+  tableView = document.getElementById('fx-display')
+ 
+ 
+  if(tableView.style.display === 'none'){
+   tableView.style.display = 'block';
+   columnView.style.display = 'none';
+  }else{ 
+   tableView.style.display = 'none'
+  columnView.style.display = 'block' ; 
+   
+  }
+ }
+ </script>
     <script src="{{url_for('static' , filename='assets/js/chart.min.js')}}"></script>
     <script src="{{url_for('static' , filename='assets/js/chart.js')}}"></script>
     <script src="{{url_for('static' , filename='assets/js/bootstrap.bundle.min.js')}}"></script>

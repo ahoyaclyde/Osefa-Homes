@@ -39,9 +39,10 @@ def not_found(error):
   return render_template("404.html" , error = error)
 
 
-CompanyID = "Osefa Homes "
+CompanyID = "Osefa "
 AbstractSequences = ["DateStr" , "TimeStr"]
 
+DeployDate = "12/04/2025"
 
 def Render_Abstract_Time(SupplyOption):
     return base_controller.Space_Time_Generator(SupplyOption)
@@ -151,7 +152,7 @@ class Admin_Controller_Interface(View):
         if request.method == 'GET':
             Indicator = int(0) 
             Indicator_Next = int(1)  
-            Clientelle_Profiles = control_baselink.Print_Clientelle_Listings("Standard") 
+            Clientelle_Profiles = control_baselink.Print_Clientelle("Standard") 
             Inactive_Profiles = control_baselink.Print_Profile_States(Indicator)
             #Checks 
             if Clientelle_Profiles:
@@ -162,6 +163,7 @@ class Admin_Controller_Interface(View):
             Invoiced_Profiles = control_baselink.Print_Invoices(Indicator)
             Pending_Profiles  = control_baselink.Print_Invoices (Indicator_Next)
             Mail_Profiles = control_baselink.Print_Mail_List()
+            Transaction_Profiles = control_baselink.Print_Transaction_Profiles(Indicator)
             #Checks 
             if Invoiced_Profiles:
                 Invoice_Index = len(Invoiced_Profiles)
@@ -174,6 +176,12 @@ class Admin_Controller_Interface(View):
                 Pending_Index = len(Pending_Profiles)
             else:
                 Pending_Index = int(0)
+
+            if Transaction_Profiles: 
+                Transaction_Index = len(Transaction_Profiles)
+            else:
+                Transaction_Index = int(0)
+
 
             Projects = control_baselink.Print_Projects(Indicator)
         
@@ -197,11 +205,11 @@ class Admin_Controller_Interface(View):
                 Mail_Index = int(0)
             
  
-            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID , Clientelle_Index = Clientelle_Index , Clientelle_Profiles = Clientelle_Profiles , Invoice_Index = Invoice_Index , Pending_Profiles = Pending_Profiles , Pending_Index  =  Pending_Index ,  Project_Index = Project_Index , Sub_Index = Sub_Index , Timeline = Timeline  , Dateline = Dateline  , Mail_Profiles = Mail_Profiles  , Mail_Index = Mail_Index   )
+            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID , Clientelle_Index = Clientelle_Index , Clientelle_Profiles = Clientelle_Profiles , Invoice_Index = Invoice_Index , Pending_Profiles = Pending_Profiles , Pending_Index  =  Pending_Index ,  Transaction_Profiles = Transaction_Profiles  , Transaction_Index = Transaction_Index ,Project_Index = Project_Index , Sub_Index = Sub_Index , Timeline = Timeline  , Dateline = Dateline  , Mail_Profiles = Mail_Profiles  , Mail_Index = Mail_Index  , DeployDate = DeployDate  )
         elif request.method == "POST":
           
             # Return requested profile thru client connect 
-            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID  )
+            return render_template('Admin-Controller-Concept.html' , CompanyID = CompanyID  , DeployDate = DeployDate )
 
 
 
@@ -212,12 +220,14 @@ class Admin_Invoice_Interface(View):
         UID = base_controller.Construct_String_Address(10)
         if request.method == 'GET':
             Indicator = int(0)  
+            Indicator_Next = int(1)
 
             # Data Block For Potential Export  
             Invoiced_Profiles = control_baselink.Print_Invoices(Indicator)
+            Pending_Invoices = control_baselink.Print_Invoices(Indicator_Next)
             Account_Profiles = control_baselink.Print_Clientelle_Listings(Indicator)
-            Project_Profiles = control_baselink.Print_Projects(Indicator)
-
+            Project_Profiles = control_baselink.Print_Projects_Headname()
+            print(Project_Profiles)
             #Checks 
             if Invoiced_Profiles:
                 Invoice_Index = len(Invoiced_Profiles)
@@ -236,9 +246,14 @@ class Admin_Invoice_Interface(View):
                 Project_Index = len(Project_Profiles)
             else:
                 Project_Index = int(0)
+
+            if Pending_Invoices : 
+                Prending_Index = len(Pending_Invoices)
+            else:
+                Pending_Index = int(0)
  
 
-            return render_template('Admin-Collative-Invoice.html' , CompanyID = CompanyID , Invoiced_Profiles = Invoiced_Profiles , Invoice_Index = Invoice_Index  ,  Timeline = Timeline , Dateline = Dateline , UID = UID , Account_Profiles = Account_Profiles  , Project_Profiles = Project_Profiles, Account_Index = Account_Index )
+            return render_template('Admin-Collative-Invoice.html' , CompanyID = CompanyID , Invoiced_Profiles = Invoiced_Profiles , Invoice_Index = Invoice_Index  ,  Timeline = Timeline , Dateline = Dateline , UID = UID , Account_Profiles = Account_Profiles  , Project_Profiles = Project_Profiles,  Pending_Invoices = Pending_Invoices , Pending_Index = Pending_Index , Account_Index = Account_Index  , DeployDate = DeployDate)
         elif request.method == "POST": 
             Feedback = list(request.form.values())
             # Check For Length  -- If Length == 9 | OK 
@@ -262,7 +277,7 @@ class Admin_Clientelle_Interface(View):
         if request.method == 'GET':
             Indicator = int(1) 
             Indicator_Next = int(0)  
-            Clientelle_Profiles = control_baselink.Print_Clientelle_Listings("Standard") 
+            Clientelle_Profiles = control_baselink.Print_Clientelle("Standard") 
             Inactive_Profiles = control_baselink.Print_Profile_States(Indicator)
             #Checks 
             if Clientelle_Profiles:
@@ -308,7 +323,7 @@ class Admin_Project_Interface(View):
                 Stale_Index = int(0)
 
 
-            return render_template('Admin-Projects-Concept.html' , CompanyID = CompanyID , Projects = Projects , Project_Index = Project_Index , Stale_Projects = Stale_Projects , Stale_Index = Stale_Index  , UID = UID , Dateline = Dateline , Timeline = Timeline , Account_Profiles = Account_Profiles )
+            return render_template('Admin-Projects-Concept.html' , CompanyID = CompanyID , Projects = Projects , Project_Index = Project_Index , Stale_Projects = Stale_Projects , Stale_Index = Stale_Index  , UID = UID , Dateline = Dateline , Timeline = Timeline , Account_Profiles = Account_Profiles , DeployDate = DeployDate )
         elif request.method == "POST": 
             Feedback = list(request.form.values())
             # Check For Length  -- If Length == 10 | OK 
@@ -319,11 +334,12 @@ class Admin_Project_Interface(View):
                 return redirect(url_for('Projects'))
          
             # Return requested profile thru client connect 
-            return render_template('Admin-Projects-Concept.html' , CompanyID = CompanyID  )
+            return render_template('Admin-Projects-Concept.html' , CompanyID = CompanyID , DeployDate = DeployDate  )
         
 class Mail_List_Interface(View):
    methods = ['GET', 'POST']  
    def dispatch_request(self) -> str :
+        Failed_Index = int(0)
        
         if request.method == 'GET':
             MailProfiles =  control_baselink.Print_Mail_List()
@@ -333,10 +349,10 @@ class Mail_List_Interface(View):
             else:
                 MailIndex = int(0)
 
-            return render_template('Mail-List-Concept.html' , CompanyID = CompanyID , MailProfiles = MailProfiles , MailIndex = MailIndex  )
+            return render_template('Mail-List-Concept.html' , CompanyID = CompanyID , MailProfiles = MailProfiles , MailIndex = MailIndex , DeployDate = DeployDate , Failed_Index = Failed_Index)
         else: 
             # Return requested profile thru client connect 
-            return render_template('Mail-List-Concept.html' , CompanyID = CompanyID  )
+            return render_template('Mail-List-Concept.html' , CompanyID = CompanyID , DeployDate = DeployDate  )
 
 
    
@@ -356,11 +372,11 @@ class Subscriber_Array_Interface(View):
 
             
 
-            return render_template('Subscriber-Array-Concept.html' , CompanyID = CompanyID , Sub_Profiles = Sub_Profiles , Sub_Index = Sub_Index  )
+            return render_template('Subscriber-Array-Concept.html' , CompanyID = CompanyID , Sub_Profiles = Sub_Profiles , Sub_Index = Sub_Index , DeployDate = DeployDate  )
         else: 
                
             # Return requested profile thru client connect 
-            return render_template('Subscriber-Array-Concept.html' , CompanyID = CompanyID  )
+            return render_template('Subscriber-Array-Concept.html' , CompanyID = CompanyID , DeployDate = DeployDate )
         
         
 
@@ -476,17 +492,26 @@ class Transactional_Processing_Interface(View):
        
         if request.method == 'GET':
             Indicator = int(0)  
-          
-            Transaction_Profiles = control_baselink.Print_Transaction_Profiles()
+            Indicator_Next = int(1)
+            Transaction_Profiles = control_baselink.Print_Transaction_Profiles(Indicator)
+
+            Pending_Transaction =  control_baselink.Print_Transaction_Profiles(Indicator_Next)
             #Checks 
             if Transaction_Profiles:
                 Transaction_Index = len(Transaction_Profiles)
             else:
                 Transaction_Index = int(0) 
 
+            if Pending_Transaction:
+                Peending_Index = len(Pending_Transaction)
+            else:
+                Pending_Index = int(0) 
+
+
+
 
         # Return requested profile thru client connect 
-        return render_template("Transaction_Unit_Concept.html" ,  Transaction_Profiles = Transaction_Profiles , Transaction_Index = Transaction_Index , Timeline = Timeline , Dateline = Dateline )        
+        return render_template("Transaction_Unit_Concept.html" ,  Transaction_Profiles = Transaction_Profiles , Transaction_Index = Transaction_Index , Pending_Transaction = Pending_Transaction , Pending_Index = Pending_Index , Timeline = Timeline , Dateline = Dateline  , DeployDate = DeployDate )        
 
 
 
